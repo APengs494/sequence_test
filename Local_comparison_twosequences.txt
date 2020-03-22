@@ -1,0 +1,77 @@
+#include <stdio.h>
+
+#define N  100
+#define M  100
+
+int max(int x, int y, int z)
+{
+	int t = 0;
+	int a,b,c;
+	a = x;
+	b = y;
+	c = z;
+	a = a<b?b:a;
+	a = a<c?c:a;
+	a = a<0?0:a;
+	return a;
+ }
+
+void main()
+{
+	char v[N],w[M];
+	int s[N][M];
+	int i,j;
+	int n,m;
+	int sum1,sum2,sum3;
+	printf("请输入第一个字符串的长度：\n");
+	scanf("%d",&n);
+	printf("请循环输入第一个字符串:\n");
+	getchar();
+	for(i=0;i<n;i=i+1)
+	{
+		scanf("%c",&v[i]);
+	}
+	printf("请输入第二个字符串的长度：\n");
+	scanf("%d",&m);
+	printf("请循环输入第二个字符串:\n");
+	getchar();
+	for(j=0;j<m;j=j+1)
+	{
+		scanf("%c",&w[j]);
+	}
+	
+	s[0][0] = 0;
+
+	for(i=1;i<=n;i++)
+		s[i][0] = 0;
+	for(j=1;j<=m;j++)
+		s[0][j] = 0;
+
+	for(i=1;i<n;i++)
+	{
+		for(j=1;j<m;j++)
+		{
+			if(v[i-1]==w[j-1])
+			{
+				sum1 = s[i-1][j-1] + 1;
+			}
+			else
+			{
+				sum1 = s[i-1][j-1];
+			}
+			sum2 = s[i-1][j] - 1;
+			sum3 = s[i][j-1] - 1;
+			s[i][j] = max(sum1,sum2,sum3);
+		}
+	}
+	printf("局部联配得分矩阵：\n");
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<m;j++)
+		{
+			printf("%3d  ",s[i][j]);
+		}
+		printf("\n");
+	}
+
+}
